@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>أي أبليكيشن من الصفر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1c2233;--muted:#5d6577;--line:#e3e6ee;--brand:#0f6e5c;--brand2:#e9f6f2;--warn:#fff6e0;--warnb:#f0c25a;--tip:#eaf2ff;--tipb:#7aa7f0;--code:#f7f8fa}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,system-ui,sans-serif;font-size:17px;line-height:1.9}
+header.hero{background:linear-gradient(135deg,#0f6e5c,#14435e);color:#fff;padding:48px 16px 40px}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.hero h1{margin:0 0 8px;font-size:clamp(26px,5vw,40px);line-height:1.4}
+.hero p{margin:0;opacity:.92;font-size:18px}
+.actions{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;background:#fff;color:#0f6e5c;border:0;border-radius:10px;padding:10px 18px;font:700 16px Cairo,sans-serif;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.7)}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:28px 0}
+nav.toc h2{margin:0 0 8px;font-size:20px}
+nav.toc ol{margin:0;padding-inline-start:22px;columns:2;column-gap:32px}
+nav.toc a{color:var(--brand);text-decoration:none}
+nav.toc a:hover{text-decoration:underline}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:22px 0}
+section h2{margin:0 0 6px;font-size:25px;color:var(--brand)}
+section h3{font-size:19px;margin:22px 0 4px}
+.num{display:inline-block;background:var(--brand2);color:var(--brand);border-radius:8px;padding:0 10px;margin-inline-end:8px;font-size:18px}
+code{font-variant-ligatures:none;font-family:"JetBrains Mono",monospace;font-size:.86em;background:var(--code);border:1px solid var(--line);border-radius:5px;padding:0 5px;direction:ltr;unicode-bidi:embed}
+.codebox{position:relative;margin:12px 0}
+.codebox .file{direction:ltr;text-align:left;font:600 13px "JetBrains Mono",monospace;color:var(--muted);background:#eef0f5;border:1px solid var(--line);border-bottom:0;border-radius:10px 10px 0 0;padding:5px 12px}
+pre{direction:ltr;text-align:left;margin:0;background:var(--code);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
+.codebox .file+pre{border-radius:0 0 10px 10px}
+pre code{display:block;border:0;background:none;padding:14px 16px;font-size:13.5px;line-height:1.65;white-space:pre}
+.copy{position:absolute;top:6px;left:8px;font:600 12px Cairo,sans-serif;background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 10px;cursor:pointer;color:var(--muted)}
+.codebox .file~.copy{top:34px}
+.note{border-radius:10px;padding:10px 14px;margin:12px 0;border-inline-start:5px solid}
+.note.tip{background:var(--tip);border-color:var(--tipb)}
+.note.warn{background:var(--warn);border-color:var(--warnb)}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:15.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:right;vertical-align:top}
+th{background:var(--brand2)}
+.check li{list-style:"✅  "}
+footer{text-align:center;color:var(--muted);padding:30px 16px 50px;font-size:15px}
+@media (max-width:700px){nav.toc ol{columns:1}section{padding:18px 16px}body{font-size:16px}}
+@media print{
+  @page{size:A4;margin:14mm 12mm}
+  body{background:#fff;font-size:12.5pt}
+  .actions,.copy,nav.toc{display:none}
+  header.hero{background:#0f6e5c;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:24px 16px}
+  section{border:0;padding:6px 0;margin:10px 0;break-inside:auto}
+  section h2{break-after:avoid}
+  pre{overflow:visible;white-space:pre-wrap}
+  pre code{white-space:pre-wrap;word-break:break-word;font-size:9pt}
+  .codebox{break-inside:avoid-page}
+}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <h1>إزاي تبني أي أبليكيشن من الصفر — من غير AI</h1>
+  <p>نفس طريقة «سوا» (Flutter + Cubit + Dio)، بس لأي فكرة: مطعم، متجر، عيادة، توصيل، جيم… هتعرف تفكر إزاي، تقسم إيه، وتكتب إيه.</p>
+  <div class="actions">
+    <a class="btn" href="guide.pdf" download>⬇ تنزيل PDF</a>
+    <button class="btn ghost" onclick="window.print()">🖨 طباعة</button>
+    <a class="btn ghost" href="https://dobydragon.github.io/hr-app-from-scratch/">← دليل أبليكيشن الـ HR</a>
+  </div>
+</div></header>
+
+<main class="wrap">
+
+<nav class="toc"><h2>الفهرس</h2><ol>
+<li><a href="#a1">الفكرة الكبيرة: حاجات ثابتة وحاجات بتتغير</a></li>
+<li><a href="#a2">من الفكرة للكود في 7 خطوات</a></li>
+<li><a href="#a3">الـ Core اللي بتنقله زي ما هو</a></li>
+<li><a href="#a4">قالب أي Feature (انسخ وغيّر الاسم)</a></li>
+<li><a href="#a5">مثال كامل: أبليكيشن مطعم</a></li>
+<li><a href="#a6">الفروع وأقرب فرع</a></li>
+<li><a href="#a7">المنيو</a></li>
+<li><a href="#a8">السلة (Cart)</a></li>
+<li><a href="#a9">الأوردر والدفع والمتابعة</a></li>
+<li><a href="#a10">أنواع أبليكيشنات تانية وتقسيمها</a></li>
+<li><a href="#a11">حاجات بتتكرر في أبليكيشنات كتير</a></li>
+<li><a href="#a12">باكدج لكل احتياج</a></li>
+<li><a href="#a13">مفيش باك إند؟ Firebase</a></li>
+<li><a href="#a14">Checklist قبل التسليم</a></li>
+</ol></nav>
+
+<section id="a1">
+<h2><span class="num">1</span>الفكرة الكبيرة: حاجات ثابتة وحاجات بتتغير</h2>
+<p>أي أبليكيشن في الدنيا مقسوم نصين:</p>
+<table>
+<tr><th>النص الثابت (core + shared)</th><th>النص اللي بيتغير (features)</th></tr>
+<tr><td>
+الثيم والألوان<br>التخزين (Cache + Secure)<br>Dio + Interceptor + ApiConstants<br>رسايل الأخطاء<br>AppNavigator<br>الترجمة<br>اللغة والثيم (AppSettingsCubit)<br>Splash + Login + Register<br>Widgets مشتركة (زرار، فيلد، لودينج، خطأ، فاضي)
+</td><td>
+HR: حضور، إجازات، مرتبات<br>مطعم: فروع، منيو، سلة، أوردرات<br>عيادة: دكاترة، مواعيد، حجز<br>متجر: أقسام، منتجات، سلة، شحن<br>توصيل: مشاوير، خريطة، سواق
+</td></tr>
+</table>
+<div class="note tip">💡 يعني: <b>النص الأول بتعمله مرة واحدة في حياتك</b> وتنقله من مشروع لمشروع (بتغير الألوان واللينك بس). النص التاني هو اللي بتفكر فيه في كل أبليكيشن جديد. الشرح الكامل للنص الأول بالكود موجود في <a href="https://dobydragon.github.io/hr-app-from-scratch/">دليل الـ HR</a> (أقسام 4 لـ 8 و 18 و 19).</div>
+</section>
+
+<section id="a2">
+<h2><span class="num">2</span>من الفكرة للكود في 7 خطوات</h2>
+<p>دي الطريقة اللي تمشي عليها مع أي فكرة. هنطبقها على مطعم:</p>
+<table>
+<tr><th>#</th><th>الخطوة</th><th>بتسأل نفسك إيه</th><th>في المطعم</th></tr>
+<tr><td>1</td><td>المستخدمين</td><td>مين هيفتح الأبليكيشن؟</td><td>الزبون. (والمطبخ/الكاشير ليهم لوحة تانية غالباً ويب.)</td></tr>
+<tr><td>2</td><td>الرحلة</td><td>اليوزر بيعمل إيه من أول ما يفتح لحد ما يقفل؟</td><td>يفتح ← يختار فرع ← يتفرج على المنيو ← يحط في السلة ← يطلب ← يدفع ← يتابع الأوردر.</td></tr>
+<tr><td>3</td><td>الأسماء (الكيانات)</td><td>طلّع كل «اسم» في الرحلة.</td><td>فرع، قسم، صنف، إضافة، سلة، أوردر، عنوان، يوزر.</td></tr>
+<tr><td>4</td><td>الأفعال</td><td>طلّع كل «فعل».</td><td>يختار، يضيف، يشيل، يطلب، يدفع، يلغي، يقيّم.</td></tr>
+<tr><td>5</td><td>الشاشات</td><td>كل خطوة في الرحلة = شاشة تقريباً.</td><td>Splash، Login، الفروع، المنيو، تفاصيل الصنف، السلة، Checkout، أوردراتي، تتبع الأوردر، حسابي.</td></tr>
+<tr><td>6</td><td>الـ API</td><td>كل شاشة محتاجة أنهي ريكوست؟</td><td><code>GET /branches</code>، <code>GET /menu?branch_id=</code>، <code>POST /orders</code>، <code>GET /orders/my</code>…</td></tr>
+<tr><td>7</td><td>الـ Features</td><td>جمّع الشاشات اللي بتتكلم عن نفس الحاجة في فولدر.</td><td><code>branches</code>، <code>menu</code>، <code>cart</code>، <code>orders</code>، <code>address</code>، <code>profile</code>.</td></tr>
+</table>
+<div class="note tip">💡 قاعدة سهلة: <b>كل «اسم» = Model</b>، <b>كل «فعل» = دالة في Cubit</b>، <b>كل «مجموعة أسماء قريبة من بعض» = Feature</b>.</div>
+</section>
+
+<section id="a3">
+<h2><span class="num">3</span>الـ Core اللي بتنقله زي ما هو</h2>
+<p>اعمل لنفسك مشروع «قالب» (Template) فيه الحاجات دي جاهزة، ولما تبدأ أبليكيشن جديد انسخه:</p>
+<script type="text/x-code" data-lang="plaintext">
+my_template/
+└── lib/
+    ├── main.dart                 ← بتغير الاسم والـ home بس
+    ├── config/themes/            ← بتغير الألوان بس
+    ├── core/
+    │   ├── network/              ← بتغير baseUrl + اللينكات
+    │   ├── storage/              ← زي ما هو
+    │   ├── failure/              ← زي ما هو
+    │   └── navigation/           ← زي ما هو
+    ├── shared/widgets/           ← زي ما هو
+    ├── l10n/                     ← بتزود الكلمات الجديدة
+    └── features/
+        ├── splash/               ← زي ما هو
+        ├── auth/                 ← بتغير الحقول حسب السيرفر
+        ├── layout/               ← بتغير التابات
+        └── settings/             ← زي ما هو
+</script>
+<p>وبعد ما تنسخه:</p>
+<script type="text/x-code" data-lang="bash">
+# 1) غيّر اسم الباكدج في pubspec.yaml (name: restaurant_app)
+# 2) غيّر كل الـ imports القديمة مرة واحدة:
+grep -rl "package:my_template/" lib | xargs sed -i '' 's#package:my_template/#package:restaurant_app/#g'
+# 3) غيّر الـ Bundle ID / Application ID (أو استخدم باكدج change_app_package_name)
+dart run change_app_package_name:main com.yourcompany.restaurant
+</script>
+</section>
+
+<section id="a4">
+<h2><span class="num">4</span>قالب أي Feature (انسخ وغيّر الاسم)</h2>
+<p>ده القالب اللي بيتكرر 90% من الوقت: «هات ليستة من السيرفر واعرضها». غيّر كلمة <code>Item</code> بالاسم بتاعك (Branch، Product، Doctor…).</p>
+<script type="text/x-code" data-lang="dart" data-file="features/items/models/item_model.dart">
+class ItemModel {
+  final int id;
+  final String name;
+  final String? image;
+
+  ItemModel({required this.id, required this.name, this.image});
+
+  factory ItemModel.fromJson(Map<String, dynamic> j) => ItemModel(
+        id: j['id'] ?? 0,
+        name: j['name'] ?? '',
+        image: j['image'],
+      );
+}
+</script>
+<script type="text/x-code" data-lang="dart" data-file="features/items/cubit/items_cubit.dart">
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/failure/error_message.dart';
+import '../../../core/network/dio_helper.dart';
+import '../models/item_model.dart';
+
+abstract class ItemsState {}
+class ItemsLoading extends ItemsState {}
+class ItemsEmpty extends ItemsState {}
+class ItemsLoaded extends ItemsState {
+  final List<ItemModel> items;
+  ItemsLoaded(this.items);
+}
+class ItemsError extends ItemsState {
+  final String message;
+  ItemsError(this.message);
+}
+
+class ItemsCubit extends Cubit<ItemsState> {
+  final String url;
+  ItemsCubit(this.url) : super(ItemsLoading());
+
+  Future<void> load({Map<String, dynamic>? query}) async {
+    emit(ItemsLoading());
+    try {
+      final res = await DioHelper.get(url, query: query);
+      final list = (res.data['data'] as List)
+          .map((e) => ItemModel.fromJson(e))
+          .toList();
+      emit(list.isEmpty ? ItemsEmpty() : ItemsLoaded(list));
+    } catch (e) {
+      emit(ItemsError(ErrorMessage.of(e)));
+    }
+  }
+}
+</script>
+<script type="text/x-code" data-lang="dart" data-file="features/items/presentation/items_screen.dart">
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/network/api_constants.dart';
+import '../../../shared/widgets/state_views.dart';
+import '../cubit/items_cubit.dart';
+
+class ItemsScreen extends StatelessWidget {
+  const ItemsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => ItemsCubit(ApiConstants.items)..load(),
+      child: Scaffold(
+        appBar: AppBar(title: const Text('العنوان')),
+        body: BlocBuilder<ItemsCubit, ItemsState>(
+          builder: (context, state) {
+            final cubit = context.read<ItemsCubit>();
+            if (state is ItemsLoading) return const LoadingView();
+            if (state is ItemsEmpty) return const EmptyView();
+            if (state is ItemsError) {
+              return ErrorView(message: state.message, onRetry: cubit.load);
+            }
+            final items = (state as ItemsLoaded).items;
+            return RefreshIndicator(
+              onRefresh: cubit.load,
+              child: ListView.separated(
+                padding: const EdgeInsets.all(16),
+                itemCount: items.length,
+                separatorBuilder: (_, __) => const SizedBox(height: 10),
+                itemBuilder: (_, i) => Card(
+                  child: ListTile(
+                    title: Text(items[i].name),
+                    onTap: () {/* افتح التفاصيل */},
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+</script>
+<div class="note tip">💡 أي Feature تانية = القالب ده + حاجة جديدة صغيرة (فورم، أو سلة، أو خريطة). متبدأش من ورقة فاضية أبداً.</div>
+</section>
+
+<section id="a5">
+<h2><span class="num">5</span>مثال كامل: أبليكيشن مطعم</h2>
+<h3>الفولدرات</h3>
+<script type="text/x-code" data-lang="plaintext">
+lib/features/
+├── splash/          (من القالب)
+├── auth/            (من القالب — غالباً رقم موبايل + OTP)
+├── layout/          تابات: الرئيسية، المنيو، السلة، أوردراتي، حسابي
+├── branches/        الفروع + اختيار فرع + أقرب فرع
+├── menu/            الأقسام + الأصناف + تفاصيل الصنف والإضافات
+├── cart/            السلة (محلية على الموبايل)
+├── checkout/        العنوان + طريقة الدفع + تأكيد
+├── orders/          أوردراتي + تتبع أوردر
+├── address/         عناويني (إضافة/تعديل/حذف)
+├── offers/          العروض والكوبونات
+└── settings/        (من القالب)
+</script>
+<h3>اللينكات</h3>
+<script type="text/x-code" data-lang="dart" data-file="core/network/api_constants.dart">
+class ApiConstants {
+  static const String baseUrl = String.fromEnvironment('BASE_URL',
+      defaultValue: 'https://api.example.com/api');
+
+  static const String sendOtp = '/auth/send-otp';
+  static const String verifyOtp = '/auth/verify-otp';
+
+  static const String branches = '/branches';
+  static const String categories = '/menu/categories';   // ?branch_id=
+  static const String products = '/menu/products';       // ?category_id=
+  static const String productDetails = '/menu/product';  // ?id=
+
+  static const String addresses = '/addresses';
+  static const String validateCoupon = '/coupons/validate';
+  static const String createOrder = '/orders';
+  static const String myOrders = '/orders/my';
+  static const String orderDetails = '/orders/details';  // ?id=
+}
+</script>
+</section>
+
+<section id="a6">
+<h2><span class="num">6</span>الفروع وأقرب فرع</h2>
+<p>هي نفس فكرة «مكان الشغل» في البصمة بتاعة HR، بس بالعكس: بدل ما نتأكد إنك جوه الدايرة، بنرتب الفروع من الأقرب للأبعد.</p>
+<script type="text/x-code" data-lang="dart" data-file="features/branches/models/branch_model.dart">
+class BranchModel {
+  final int id;
+  final String name;
+  final String address;
+  final double lat;
+  final double lng;
+  final bool isOpen;
+  final double deliveryFee;
+  double? distanceKm; // بنحسبها في الأبليكيشن
+
+  BranchModel({required this.id, required this.name, required this.address,
+      required this.lat, required this.lng, required this.isOpen,
+      required this.deliveryFee});
+
+  factory BranchModel.fromJson(Map<String, dynamic> j) => BranchModel(
+        id: j['id'] ?? 0,
+        name: j['name'] ?? '',
+        address: j['address'] ?? '',
+        lat: (j['lat'] ?? 0).toDouble(),
+        lng: (j['lng'] ?? 0).toDouble(),
+        isOpen: j['is_open'] ?? false,
+        deliveryFee: (j['delivery_fee'] ?? 0).toDouble(),
+      );
+}
+</script>
+<script type="text/x-code" data-lang="dart" data-file="features/branches/cubit/branches_cubit.dart">
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/failure/error_message.dart';
+import '../../../core/network/api_constants.dart';
+import '../../../core/network/dio_helper.dart';
+import '../../../core/service/location_service.dart';
+import '../../../core/storage/cache_helper.dart';
+import '../models/branch_model.dart';
+
+abstract class BranchesState {}
+class BranchesLoading extends BranchesState {}
+class BranchesLoaded extends BranchesState {
+  final List<BranchModel> branches;
+  final int? selectedId;
+  BranchesLoaded(this.branches, this.selectedId);
+}
+class BranchesError extends BranchesState {
+  final String message;
+  BranchesError(this.message);
+}
+
+class BranchesCubit extends Cubit<BranchesState> {
+  final LocationService location;
+  BranchesCubit(this.location) : super(BranchesLoading());
+
+  List<BranchModel> _all = [];
+
+  Future<void> load() async {
+    emit(BranchesLoading());
+    try {
+      final res = await DioHelper.get(ApiConstants.branches);
+      _all = (res.data['data'] as List).map((e) => BranchModel.fromJson(e)).toList();
+
+      // لو اليوزر سمح بالموقع: احسب المسافة ورتّب
+      final pos = await location.getPosition();
+      if (pos != null) {
+        for (final b in _all) {
+          b.distanceKm = location.distance(pos.latitude, pos.longitude, b.lat, b.lng) / 1000;
+        }
+        _all.sort((a, b) => a.distanceKm!.compareTo(b.distanceKm!));
+      }
+      emit(BranchesLoaded(_all, CacheHelper.getData('branch_id')));
+    } catch (e) {
+      emit(BranchesError(ErrorMessage.of(e)));
+    }
+  }
+
+  Future<void> select(BranchModel b) async {
+    await CacheHelper.saveData('branch_id', b.id); // نفتكره المرة الجاية
+    emit(BranchesLoaded(_all, b.id));
+  }
+}
+</script>
+<div class="note warn">⚠️ لو المستخدم غيّر الفرع والسلة فيها حاجات من فرع تاني: اسأله «هنفضي السلة، موافق؟». الأسعار والأصناف ممكن تختلف من فرع لفرع.</div>
+</section>
+
+<section id="a7">
+<h2><span class="num">7</span>المنيو (أقسام فوق + أصناف تحت)</h2>
+<script type="text/x-code" data-lang="dart" data-file="features/menu/models/product_model.dart">
+class ProductModel {
+  final int id;
+  final String name;
+  final String? description;
+  final String? image;
+  final double price;
+  final List<AddonModel> addons; // إضافات: جبنة زيادة، صوص...
+
+  ProductModel({required this.id, required this.name, this.description,
+      this.image, required this.price, this.addons = const []});
+
+  factory ProductModel.fromJson(Map<String, dynamic> j) => ProductModel(
+        id: j['id'] ?? 0,
+        name: j['name'] ?? '',
+        description: j['description'],
+        image: j['image'],
+        price: (j['price'] ?? 0).toDouble(),
+        addons: ((j['addons'] ?? []) as List).map((e) => AddonModel.fromJson(e)).toList(),
+      );
+}
+
+class AddonModel {
+  final int id;
+  final String name;
+  final double price;
+  AddonModel({required this.id, required this.name, required this.price});
+  factory AddonModel.fromJson(Map<String, dynamic> j) =>
+      AddonModel(id: j['id'] ?? 0, name: j['name'] ?? '', price: (j['price'] ?? 0).toDouble());
+}
+</script>
+<p>الشاشة: <code>TabBar</code> فيه الأقسام فوق، وكل تاب جواه القالب بتاع قسم 4 بـ <code>?category_id=</code>. أو أسهل: <code>ChoiceChip</code> أفقي فوق، ولما تختار قسم تنادي <code>cubit.load(query: {'category_id': id})</code>.</p>
+<script type="text/x-code" data-lang="dart">
+SizedBox(
+  height: 48,
+  child: ListView.separated(
+    scrollDirection: Axis.horizontal,
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    itemCount: categories.length,
+    separatorBuilder: (_, __) => const SizedBox(width: 8),
+    itemBuilder: (_, i) => ChoiceChip(
+      label: Text(categories[i].name),
+      selected: categories[i].id == selectedId,
+      onSelected: (_) {
+        setState(() => selectedId = categories[i].id);
+        context.read<ProductsCubit>().load(query: {'category_id': selectedId});
+      },
+    ),
+  ),
+)
+</script>
+</section>
+
+<section id="a8">
+<h2><span class="num">8</span>السلة (Cart) — الحاجة الجديدة الأهم</h2>
+<p>السلة مختلفة: <b>مش بتكلم السيرفر</b>. هي ليستة على الموبايل لحد ما اليوزر يطلب. ولازم تكون موجودة في <b>الأبليكيشن كله</b> (المنيو بيضيف، وأيقونة السلة بتعرض العدد، وشاشة السلة بتعرض الإجمالي) — عشان كده نحطها فوق <code>MaterialApp</code> زي <code>AppSettingsCubit</code>.</p>
+<script type="text/x-code" data-lang="dart" data-file="features/cart/models/cart_item.dart">
+import '../../menu/models/product_model.dart';
+
+class CartItem {
+  final ProductModel product;
+  final List<AddonModel> addons;
+  final int quantity;
+  final String? note; // "من غير بصل"
+
+  const CartItem({required this.product, this.addons = const [],
+      this.quantity = 1, this.note});
+
+  double get unitPrice => product.price + addons.fold(0.0, (s, a) => s + a.price);
+  double get total => unitPrice * quantity;
+
+  /// نفس الصنف بنفس الإضافات = نفس السطر في السلة
+  String get key => '${product.id}-${(addons.map((a) => a.id).toList()..sort()).join(',')}';
+
+  CartItem copyWith({int? quantity}) => CartItem(
+      product: product, addons: addons, quantity: quantity ?? this.quantity, note: note);
+
+  Map<String, dynamic> toJson() => {
+        'product_id': product.id,
+        'addon_ids': addons.map((a) => a.id).toList(),
+        'quantity': quantity,
+        'note': note ?? '',
+      };
+}
+</script>
+<script type="text/x-code" data-lang="dart" data-file="features/cart/cubit/cart_cubit.dart">
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../models/cart_item.dart';
+
+class CartState {
+  final List<CartItem> items;
+  final double discount;
+  const CartState({this.items = const [], this.discount = 0});
+
+  int get count => items.fold(0, (s, i) => s + i.quantity);
+  double get subtotal => items.fold(0.0, (s, i) => s + i.total);
+  double get total => (subtotal - discount).clamp(0, double.infinity);
+  bool get isEmpty => items.isEmpty;
+}
+
+class CartCubit extends Cubit<CartState> {
+  CartCubit() : super(const CartState());
+
+  void add(CartItem item) {
+    final list = [...state.items];
+    final i = list.indexWhere((e) => e.key == item.key);
+    if (i == -1) {
+      list.add(item);
+    } else {
+      list[i] = list[i].copyWith(quantity: list[i].quantity + item.quantity);
+    }
+    emit(CartState(items: list, discount: state.discount));
+  }
+
+  void changeQty(String key, int qty) {
+    final list = [...state.items];
+    final i = list.indexWhere((e) => e.key == key);
+    if (i == -1) return;
+    if (qty <= 0) {
+      list.removeAt(i);
+    } else {
+      list[i] = list[i].copyWith(quantity: qty);
+    }
+    emit(CartState(items: list, discount: state.discount));
+  }
+
+  void applyDiscount(double value) =>
+      emit(CartState(items: state.items, discount: value));
+
+  void clear() => emit(const CartState());
+}
+</script>
+<script type="text/x-code" data-lang="dart" data-file="main.dart (الجزء المهم)">
+runApp(
+  MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (_) => AppSettingsCubit()),
+      BlocProvider(create: (_) => CartCubit()), // متاحة في كل الشاشات
+    ],
+    child: const MyApp(),
+  ),
+);
+
+// في أي شاشة:
+context.read<CartCubit>().add(CartItem(product: p));
+
+// أيقونة السلة بالعدد:
+BlocBuilder<CartCubit, CartState>(
+  builder: (_, cart) => Badge(
+    isLabelVisible: cart.count > 0,
+    label: Text('${cart.count}'),
+    child: const Icon(Icons.shopping_cart_outlined),
+  ),
+)
+</script>
+<div class="note tip">💡 لو عايز السلة تفضل موجودة لو اليوزر قفل الأبليكيشن: احفظ <code>items.map((e) =&gt; e.toJson())</code> كـ JSON في <code>CacheHelper</code> مع كل تغيير، ورجّعها في الـ constructor. أو استخدم <code>hydrated_bloc</code> اللي بيعمل ده لوحده.</div>
+<div class="note warn">⚠️ السعر النهائي <b>السيرفر هو اللي يحسبه</b> وقت الأوردر. اللي في الموبايل للعرض بس — أي حد ممكن يلعب في الأبليكيشن ويغيّر الأسعار.</div>
+</section>
+
+<section id="a9">
+<h2><span class="num">9</span>الأوردر والدفع والمتابعة</h2>
+<script type="text/x-code" data-lang="dart" data-file="features/checkout/cubit/checkout_cubit.dart">
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/failure/error_message.dart';
+import '../../../core/network/api_constants.dart';
+import '../../../core/network/dio_helper.dart';
+import '../../cart/cubit/cart_cubit.dart';
+
+abstract class CheckoutState {}
+class CheckoutIdle extends CheckoutState {}
+class CheckoutSending extends CheckoutState {}
+class CheckoutDone extends CheckoutState {
+  final int orderId;
+  final String? paymentUrl; // لو دفع أونلاين
+  CheckoutDone(this.orderId, this.paymentUrl);
+}
+class CheckoutError extends CheckoutState {
+  final String message;
+  CheckoutError(this.message);
+}
+
+class CheckoutCubit extends Cubit<CheckoutState> {
+  final CartCubit cart;
+  CheckoutCubit(this.cart) : super(CheckoutIdle());
+
+  Future<void> placeOrder({required int branchId, required int addressId,
+      required String payment /* cash / card */, String? coupon}) async {
+    if (state is CheckoutSending) return; // ممنوع أوردر مرتين
+    emit(CheckoutSending());
+    try {
+      final res = await DioHelper.post(ApiConstants.createOrder, data: {
+        'branch_id': branchId,
+        'address_id': addressId,
+        'payment_method': payment,
+        'coupon': coupon,
+        'items': cart.state.items.map((e) => e.toJson()).toList(),
+      });
+      cart.clear();
+      emit(CheckoutDone(res.data['data']['id'], res.data['data']['payment_url']));
+    } catch (e) {
+      emit(CheckoutError(ErrorMessage.of(e)));
+    }
+  }
+}
+</script>
+<h3>الدفع أونلاين</h3>
+<p>أسهل وأأمن طريقة: <b>السيرفر</b> يكلّم بوابة الدفع (Paymob، Fawry، Stripe…) ويرجعلك <code>payment_url</code>، وإنت تفتحه في WebView أو المتصفح، ولما يخلص ترجع تسأل السيرفر «الأوردر اتدفع؟».</p>
+<script type="text/x-code" data-lang="dart">
+// أبسط حل: افتح لينك الدفع في المتصفح
+await launchUrl(Uri.parse(paymentUrl), mode: LaunchMode.externalApplication);
+// لما يرجع للأبليكيشن: اعمل refresh لتفاصيل الأوردر وشوف حالة الدفع
+</script>
+<div class="note warn">⚠️ <b>عمرك</b> ما تحط مفاتيح بوابة الدفع (Secret Key) جوه الأبليكيشن. ده شغل السيرفر بس.</div>
+<h3>متابعة الأوردر</h3>
+<p>حالات الأوردر: <code>pending → accepted → preparing → on_the_way → delivered</code> (أو <code>cancelled</code>). أسهل طريقة للتحديث:</p>
+<script type="text/x-code" data-lang="dart">
+// كل 20 ثانية اسأل السيرفر (Polling) — بسيط ومضمون
+Timer? _timer;
+
+void startTracking(int orderId) {
+  _timer = Timer.periodic(const Duration(seconds: 20), (_) => loadOrder(orderId));
+}
+
+@override
+Future<void> close() {
+  _timer?.cancel(); // مهم: وقّف التايمر لما الشاشة تتقفل
+  return super.close();
+}
+</script>
+<p>الأحسن بعد كده: <b>Push Notifications</b> (Firebase Messaging) — السيرفر يبعتلك إشعار لما الحالة تتغير، أو <b>WebSocket</b> لو محتاج لحظي (زي مكان الدليفري على الخريطة).</p>
+</section>
+
+<section id="a10">
+<h2><span class="num">10</span>أنواع أبليكيشنات تانية وتقسيمها</h2>
+<p>كل نوع: الـ Features بتاعته، والحاجة الجديدة اللي هتتعلمها فيه. الباقي كله = القالب بتاع قسم 4.</p>
+<table>
+<tr><th>النوع</th><th>الـ Features</th><th>الحاجة الجديدة / الصعبة</th></tr>
+<tr><td><b>مطعم / كافيه</b></td><td>branches, menu, cart, checkout, orders, address, offers</td><td>السلة، الإضافات، أقرب فرع، تتبع الأوردر.</td></tr>
+<tr><td><b>متجر / سوبرماركت</b></td><td>categories, products, search, cart, wishlist, checkout, orders, address</td><td>البحث + الفلاتر + Pagination (تحميل صفحة صفحة)، المفضلة.</td></tr>
+<tr><td><b>عيادة / حجز مواعيد</b> (دكاترة، صالون، ملاعب)</td><td>specialties, doctors, doctor_details, booking, my_appointments, reviews</td><td>اختيار يوم + ساعة متاحة (Slots)، منع حجز نفس الميعاد مرتين، تذكير قبل الميعاد.</td></tr>
+<tr><td><b>توصيل / مشاوير</b></td><td>map, trip_request, trip_tracking, driver_info, wallet, history</td><td>الخريطة، الموقع اللحظي، WebSocket، حساب السعر.</td></tr>
+<tr><td><b>تعليم أونلاين</b></td><td>courses, course_details, lessons, video_player, quizzes, progress, certificates</td><td>تشغيل فيديو، حفظ مكان الوقوف، تحميل أوفلاين، حماية المحتوى.</td></tr>
+<tr><td><b>عقارات</b></td><td>listings, filters, listing_details, map_view, favorites, contact_agent</td><td>فلاتر كتير (سعر، مساحة، منطقة)، خريطة بالعلامات، معرض صور.</td></tr>
+<tr><td><b>جيم / اشتراكات</b></td><td>plans, subscription, classes, booking, attendance(QR), progress</td><td>QR Code للدخول، الاشتراكات والتجديد، الجداول.</td></tr>
+<tr><td><b>شات / سوشيال</b></td><td>chats, chat_room, contacts, posts, comments, notifications</td><td>رسايل لحظية (WebSocket / Firestore)، رفع صور، إشعارات.</td></tr>
+<tr><td><b>نظام شركة داخلي</b> (HR، مخازن، مبيعات ميدانية)</td><td>زي HR: attendance, requests, tasks, visits, reports</td><td>الموقع، الصلاحيات حسب الدور (موظف/مدير)، تقارير PDF.</td></tr>
+</table>
+<div class="note tip">💡 الصلاحيات حسب الدور (موظف / مدير / أدمن): السيرفر يرجع <code>role</code> مع اللوجين، تحفظه، وتعرض التابات والزراير حسبه: <code>if (role == 'manager') ...</code>. بس <b>السيرفر برضه لازم يمنع</b> — الإخفاء في الأبليكيشن مش حماية.</div>
+</section>
+
+<section id="a11">
+<h2><span class="num">11</span>حاجات بتتكرر في أبليكيشنات كتير</h2>
+<h3>أ) Pagination — تحميل صفحة صفحة (متجر، عقارات، أخبار)</h3>
+<script type="text/x-code" data-lang="dart" data-file="features/products/cubit/products_cubit.dart">
+class ProductsState {
+  final List<ProductModel> items;
+  final bool loadingMore;
+  final bool hasMore;
+  final String? error;
+  const ProductsState({this.items = const [], this.loadingMore = false,
+      this.hasMore = true, this.error});
+}
+
+class ProductsCubit extends Cubit<ProductsState> {
+  ProductsCubit() : super(const ProductsState());
+
+  int _page = 1;
+  static const _perPage = 20;
+
+  Future<void> refresh() async {
+    _page = 1;
+    emit(const ProductsState());
+    await loadMore();
+  }
+
+  Future<void> loadMore() async {
+    if (state.loadingMore || !state.hasMore) return;
+    emit(ProductsState(items: state.items, loadingMore: true, hasMore: true));
+    try {
+      final res = await DioHelper.get(ApiConstants.products,
+          query: {'page': _page, 'per_page': _perPage});
+      final newItems = (res.data['data'] as List).map((e) => ProductModel.fromJson(e)).toList();
+      _page++;
+      emit(ProductsState(
+        items: [...state.items, ...newItems],
+        hasMore: newItems.length == _perPage,
+      ));
+    } catch (e) {
+      emit(ProductsState(items: state.items, hasMore: true, error: ErrorMessage.of(e)));
+    }
+  }
+}
+
+// في الشاشة: لما يقرب من آخر الليستة حمّل الصفحة اللي بعدها
+NotificationListener<ScrollNotification>(
+  onNotification: (n) {
+    if (n.metrics.pixels > n.metrics.maxScrollExtent - 300) {
+      context.read<ProductsCubit>().loadMore();
+    }
+    return false;
+  },
+  child: ListView.builder(...),
+)
+</script>
+<h3>ب) البحث — متبعتش ريكوست مع كل حرف</h3>
+<script type="text/x-code" data-lang="dart">
+Timer? _debounce;
+
+void onSearchChanged(String text) {
+  _debounce?.cancel();
+  // استنى اليوزر يبطّل كتابة نص ثانية، وبعدين ابحث
+  _debounce = Timer(const Duration(milliseconds: 500), () {
+    context.read<ProductsCubit>().search(text.trim());
+  });
+}
+</script>
+<h3>ج) رفع صورة (بروفايل، شكوى، إعلان)</h3>
+<script type="text/x-code" data-lang="dart">
+// باكدج image_picker
+final picked = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
+if (picked == null) return;
+
+final form = FormData.fromMap({
+  'image': await MultipartFile.fromFile(picked.path, filename: 'photo.jpg'),
+});
+await DioHelper.dio.post('/profile/avatar', data: form);
+</script>
+<h3>د) الصور من النت بكاش</h3>
+<script type="text/x-code" data-lang="dart">
+// باكدج cached_network_image — بتحفظ الصورة فمتتحملش كل مرة
+CachedNetworkImage(
+  imageUrl: product.image ?? '',
+  fit: BoxFit.cover,
+  placeholder: (_, __) => const ColoredBox(color: Color(0xFFEEEEEE)),
+  errorWidget: (_, __, ___) => const Icon(Icons.image_not_supported),
+)
+</script>
+<h3>هـ) تسجيل الدخول برقم الموبايل (OTP)</h3>
+<p>نفس <code>AuthCubit</code> بس بخطوتين: <code>sendOtp(phone)</code> ← شاشة الكود ← <code>verifyOtp(phone, code)</code> ← تحفظ التوكن. زوّد عداد 60 ثانية قبل «ابعت تاني» بـ <code>Timer.periodic</code>.</p>
+<h3>و) شغال من غير نت (Offline)</h3>
+<p>أبسط حل: آخر داتا رجعت من السيرفر احفظها كـ JSON في <code>CacheHelper</code>. لو الريكوست فشل، اعرض المحفوظ مع شريط صغير «إنت أوفلاين». للحاجات الكبيرة استخدم <code>hive</code> أو <code>sqflite</code>.</p>
+</section>
+
+<section id="a12">
+<h2><span class="num">12</span>باكدج لكل احتياج</h2>
+<table>
+<tr><th>محتاج إيه</th><th>الباكدج</th></tr>
+<tr><td>إدارة الحالة</td><td><code>flutter_bloc</code></td></tr>
+<tr><td>نتورك</td><td><code>dio</code></td></tr>
+<tr><td>تخزين بسيط / سري</td><td><code>shared_preferences</code> / <code>flutter_secure_storage</code></td></tr>
+<tr><td>داتا كتير على الموبايل</td><td><code>hive</code> أو <code>sqflite</code></td></tr>
+<tr><td>الموقع</td><td><code>geolocator</code></td></tr>
+<tr><td>خريطة</td><td><code>google_maps_flutter</code> أو <code>flutter_map</code> (مجانية)</td></tr>
+<tr><td>صور من النت</td><td><code>cached_network_image</code></td></tr>
+<tr><td>اختيار صورة / كاميرا</td><td><code>image_picker</code></td></tr>
+<tr><td>إشعارات</td><td><code>firebase_messaging</code> + <code>flutter_local_notifications</code></td></tr>
+<tr><td>فتح لينك / اتصال / واتساب</td><td><code>url_launcher</code></td></tr>
+<tr><td>صفحة ويب جوه الأبليكيشن (دفع)</td><td><code>webview_flutter</code></td></tr>
+<tr><td>QR (قراءة / عمل)</td><td><code>mobile_scanner</code> / <code>qr_flutter</code></td></tr>
+<tr><td>فيديو</td><td><code>video_player</code> + <code>chewie</code></td></tr>
+<tr><td>لحظي (Real-time)</td><td><code>web_socket_channel</code> أو <code>cloud_firestore</code></td></tr>
+<tr><td>تقارير الأعطال</td><td><code>firebase_crashlytics</code></td></tr>
+<tr><td>تحويل التاريخ والأرقام</td><td><code>intl</code></td></tr>
+</table>
+<div class="note tip">💡 قبل ما تختار باكدج على <b>pub.dev</b> بص على 3 حاجات: عدد الـ Likes، آخر تحديث (أقل من سنة)، وإنها بتدعم Android و iOS. وافتح تاب <b>Example</b> — فيه كود شغال جاهز.</div>
+</section>
+
+<section id="a13">
+<h2><span class="num">13</span>مفيش باك إند؟ استخدم Firebase</h2>
+<p>لو عميل صغير ومعندوش سيرفر، Firebase بيديك جاهز:</p>
+<table>
+<tr><th>محتاج</th><th>من Firebase</th></tr>
+<tr><td>تسجيل دخول (إيميل، موبايل، جوجل)</td><td>Firebase Auth</td></tr>
+<tr><td>قاعدة بيانات لحظية</td><td>Cloud Firestore</td></tr>
+<tr><td>رفع صور وملفات</td><td>Firebase Storage</td></tr>
+<tr><td>إشعارات</td><td>Cloud Messaging</td></tr>
+<tr><td>كود على السيرفر (دفع مثلاً)</td><td>Cloud Functions</td></tr>
+</table>
+<p>الهيكل <b>نفسه</b> مبيتغيرش: بدل <code>DioHelper.get</code> في الداتا سورس بتكتب <code>FirebaseFirestore.instance.collection('branches').get()</code>. الكيوبت والشاشة زي ما هما — وده سبب إننا بنفصل الداتا سورس لوحده.</p>
+<script type="text/x-code" data-lang="bash">
+dart pub global activate flutterfire_cli
+flutterfire configure   # بيربط المشروع بـ Firebase ويعمل firebase_options.dart
+</script>
+<div class="note warn">⚠️ اكتب <b>Security Rules</b> في Firestore من أول يوم. القواعد الافتراضية «اختبار» بتفتح الداتا لأي حد بعد 30 يوم أو بتقفلها خالص.</div>
+</section>
+
+<section id="a14">
+<h2><span class="num">14</span>Checklist قبل التسليم (لأي أبليكيشن)</h2>
+<ul class="check">
+<li>كل شاشة فيها: لودينج + خطأ بزرار «حاول تاني» + شكل لو الليستة فاضية.</li>
+<li>كل زرار بيبعت ريكوست بيتقفل وهو بيحمّل (مفيش طلب مرتين).</li>
+<li>جرّبت كل شاشة: عربي وإنجليزي، فاتح وغامق.</li>
+<li>جرّبت من غير نت، ونت ضعيف.</li>
+<li>جرّبت على موبايل صغير وتابلت (مفيش Overflow).</li>
+<li>لو التوكن خلص بيرجع للوجين لوحده.</li>
+<li>مفيش أي مفتاح سري أو باسورد في الكود.</li>
+<li>الصلاحيات (موقع، كاميرا…) مكتوب سببها بوضوح في <code>Info.plist</code>.</li>
+<li>الأيقونة والسبلاش واسم الأبليكيشن صح.</li>
+<li>رقم الـ build زاد في <code>pubspec.yaml</code>.</li>
+<li>عملت Build Release وجرّبته على موبايل حقيقي (مش Debug بس).</li>
+<li>ملف التوقيع <code>.jks</code> والباسوردات متخزنين في مكان آمن برّه Git.</li>
+<li>صفحة سياسة الخصوصية جاهزة (الستور بيطلبها).</li>
+</ul>
+</section>
+
+</main>
+<footer>اتعمل بواسطة عبدالله رأفت — مرجع شخصي للتعلم.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>
+document.querySelectorAll('script[type="text/x-code"]').forEach(function (s) {
+  var lines = s.textContent.replace(/^\n+|\s+$/g, '').split('\n');
+  var indent = Math.min.apply(null, lines.filter(function (l) { return l.trim(); })
+    .map(function (l) { return l.match(/^ */)[0].length; }));
+  var text = lines.map(function (l) { return l.slice(indent); }).join('\n');
+  var box = document.createElement('div'); box.className = 'codebox';
+  if (s.dataset.file) {
+    var f = document.createElement('div'); f.className = 'file'; f.textContent = s.dataset.file; box.appendChild(f);
+  }
+  var pre = document.createElement('pre'), code = document.createElement('code');
+  code.className = 'language-' + (s.dataset.lang || 'plaintext');
+  code.textContent = text; pre.appendChild(code); box.appendChild(pre);
+  var b = document.createElement('button'); b.className = 'copy'; b.textContent = 'نسخ';
+  b.onclick = function () {
+    navigator.clipboard.writeText(text).then(function () { b.textContent = 'اتنسخ ✓'; setTimeout(function () { b.textContent = 'نسخ'; }, 1500); });
+  };
+  box.appendChild(b);
+  s.replaceWith(box);
+  if (window.hljs) hljs.highlightElement(code);
+});
+</script>
+</body>
+</html>
